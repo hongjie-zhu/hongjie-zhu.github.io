@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#008cd6">
+  <meta name="description" content="Hongjie Zhu — biomedical engineering and medical AI research. Real-time ultrasound, multimodal clinical decision support, and verifiable medical image generation.">
+  <title>Hongjie Zhu | Medical AI Research</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="wordmark" href="#about" aria-label="Hongjie Zhu, home"><span class="monogram" aria-hidden="true">HZ</span><span>Hongjie Zhu</span></a>
+      <nav aria-label="Main navigation">
+        <a href="#research">Research</a><a href="#publications">Publications</a><a href="#background">Background</a><a href="#contact">Contact <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="hero container" id="about" aria-labelledby="intro-title">
+      <div class="hero-copy">
+        <p class="eyebrow">BIOMEDICAL ENGINEERING · MEDICAL AI</p>
+        <h1 id="intro-title">Hongjie Zhu<span class="blue">.</span></h1>
+        <p class="native-name" lang="zh-CN">朱鸿杰</p>
+        <h2>Medical AI for <br><span class="blue">real clinical workflows.</span></h2>
+        <p class="intro">I study how AI can turn medical images into reliable, useful evidence — from real-time ultrasound perception and multimodal decision support to verifiable image generation.</p>
+        <div class="hero-actions"><a class="button primary" href="#research">Explore my research <span aria-hidden="true">↓</span></a><a class="text-link" href="#publications">Publications <span aria-hidden="true">↗</span></a></div>
+        <p class="affiliations">Northeastern University <span aria-hidden="true">×</span> University of Dundee</p>
+      </div>
+      <aside class="research-map" aria-label="Three connected research directions">
+        <div class="map-heading"><span>RESEARCH DIRECTIONS</span><span class="map-cross" aria-hidden="true">+</span></div>
+        <ol class="map-flow">
+          <li><span class="step-number">01</span><div><span class="step-label">PERCEPTION</span><h3>See in real time.</h3><p>Dynamic ultrasound <br>Lesion &amp; instrument localization</p></div></li>
+          <li><span class="step-number">02</span><div><span class="step-label">REASONING</span><h3>Connect the evidence.</h3><p>Imaging + clinical variables <br>Workflow-oriented decision support</p></div></li>
+          <li><span class="step-number">03</span><div><span class="step-label">VERIFICATION</span><h3>Make outputs verifiable.</h3><p>Cross-scale consistency <br>MRI–histology proxy mapping</p></div></li>
+        </ol>
+        <div class="map-footer">Clinical questions <span aria-hidden="true">→</span> Measurable evidence</div>
+      </aside>
+    </section>
+
+    <section class="research-section" id="research" aria-labelledby="research-title">
+      <div class="container">
+        <div class="section-heading"><div><p class="eyebrow">01 / RESEARCH</p><h2 id="research-title">Selected work<span class="blue">.</span></h2></div><p>Real-time perception. Multimodal learning. <br>Trustworthy medical AI.</p></div>
+
+        <article class="project featured" id="tpus">
+          <div class="project-visual tp-us"><div class="figure-heading"><span>PROSPECTIVE EVALUATION</span><span>TPUS</span></div><a href="assets/tpus.png" target="_blank" rel="noopener" aria-label="View the full dynamic TPUS model evaluation figure"><img src="assets/tpus.png" alt="Published TPUS evaluation figure showing ROC curves, decision curve analysis, and a three-class confusion matrix." width="2056" height="554" loading="lazy"></a><div class="figure-metric"><strong>0.939</strong><div>Macro-averaged AUC <br><span>193-patient prospective test cohort</span></div></div></div>
+          <div class="project-copy"><div class="project-meta"><span>01 / DYNAMIC ULTRASOUND</span><span class="status">Published · 2026</span></div><h3>Following motion. <br>Supporting clinical decisions.</h3><p>A workflow-oriented system for Green classification of cystocele. Green-AttGRU combines urethrovesical junction localization with temporal modeling across the Valsalva sequence.</p><ul class="tags" aria-label="Research topics"><li>Temporal modeling</li><li>Reader study</li><li>Prospective validation</li></ul><details><summary>Study details <span aria-hidden="true">+</span></summary><div class="details-body"><p>The study included 881 patients: 688 in retrospective development and 193 in independent prospective testing. A nested 67-patient reader study assessed AI assistance for four radiologists.</p><p>In the reader study, inter-reader agreement increased from κ = 0.453 to 0.786, and pooled median interpretation time decreased from 26.7 to 9.9 seconds. These findings concern imaging interpretation; they do not establish downstream patient outcomes.</p></div></details><a class="text-link" href="https://doi.org/10.1007/s10916-026-02453-7" target="_blank" rel="noopener">Read the paper <span aria-hidden="true">↗</span></a></div>
+        </article>
+
+        <article class="project" id="ultrasound">
+          <div class="project-visual"><div class="figure-heading"><span>MODEL ARCHITECTURE</span><span>Detector-VABTR</span></div><a href="assets/ultrasound.png" target="_blank" rel="noopener" aria-label="View the full Detector-VABTR architecture"><img src="assets/ultrasound.png" alt="Detector-VABTR architecture with a MobileNetV4 backbone and dynamic receptive-field attention module." width="1267" height="721" loading="lazy"></a><div class="figure-caption">Lightweight detection for dynamic interventional ultrasound</div></div>
+          <div class="project-copy"><div class="project-meta"><span>02 / REAL-TIME PERCEPTION</span><span class="status neutral">Research project</span></div><h3>Tracking lesions and instruments <br>as anatomy changes.</h3><p>A lightweight framework for simultaneous lesion and instrument-tip localization during ultrasound-guided vacuum-assisted breast tumor resection, designed for changing lesion size, deformation, and motion.</p><ul class="tags" aria-label="Research topics"><li>Object detection</li><li>Efficient inference</li><li>Ultrasound guidance</li></ul><details><summary>Study details <span aria-hidden="true">+</span></summary><div class="details-body"><p>Detector-VABTR combines MobileNetV4 with dynamic receptive-field attention and multi-scale feature fusion. The study used 167 patients and 10,668 annotated keyframes, with patient-level data separation.</p><p>The supplied manuscript reports lesion / instrument-tip mAP50 of 0.861 / 0.796 on the held-out test set. Clinical usability was evaluated through an offline playback reader study.</p></div></details></div>
+        </article>
+
+        <article class="project" id="ceus">
+          <div class="project-visual"><div class="figure-heading"><span>MULTIMODAL INTERPRETABILITY</span><span>LRM-Fusion</span></div><a href="assets/ceus.jpeg" target="_blank" rel="noopener" aria-label="View the full CEUS and clinical interpretability figure"><img src="assets/ceus.jpeg" alt="CEUS temporal attention analysis and coefficients from the clinical model, illustrating complementary imaging and clinical information." width="1145" height="710" loading="lazy"></a><div class="figure-caption">Temporal imaging features + structured clinical evidence</div></div>
+          <div class="project-copy"><div class="project-meta"><span>03 / MULTIMODAL REASONING</span><span class="status neutral">Research project</span></div><h3>Bringing imaging and <br>clinical context together.</h3><p>LRM-Fusion integrates contrast-enhanced ultrasound sequences with clinical variables to distinguish hepatocellular carcinoma from non-HCC malignancies within malignant CEUS LI-RADS LR-M lesions.</p><ul class="tags" aria-label="Research topics"><li>Multimodal fusion</li><li>Calibration</li><li>Interpretability</li></ul><details><summary>Study details <span aria-hidden="true">+</span></summary><div class="details-body"><p>The supplied revised manuscript describes a 265-patient retrospective cohort and a 99-patient multicenter test cohort, combining 61 prospectively accrued patients with 38 external patients.</p><p>The fusion model achieved an AUC of 0.898 in the multicenter test cohort. Evaluation included calibration, decision curve analysis, interpretability, and a four-radiologist reader study.</p></div></details></div>
+        </article>
+
+        <article class="project" id="triscov">
+          <div class="project-visual"><div class="figure-heading"><span>CROSS-SCALE FRAMEWORK</span><span>TriSCoV-Net</span></div><a href="assets/triscov.png" target="_blank" rel="noopener" aria-label="View the full TriSCoV-Net architecture and training pipeline"><img src="assets/triscov.png" alt="TriSCoV-Net architecture showing diffusion MRI-conditioned generation, PLI-assisted super-resolution, and cross-scale verification." width="1888" height="645" loading="lazy"></a><div class="figure-caption">dMRI → tissue-scale proxy maps → cross-scale verification</div></div>
+          <div class="project-copy"><div class="project-meta"><span>04 / VERIFIABLE GENERATION</span><span class="status neutral">Research project</span></div><h3>Connecting MRI to <br>tissue-scale evidence.</h3><p>TriSCoV-Net explores diffusion MRI-to-immunomarker proxy mapping under weak registration, using structural priors and cross-scale consistency to support inspectable, quantifiable outputs.</p><ul class="tags" aria-label="Research topics"><li>Virtual histology</li><li>Conditional generation</li><li>Cross-scale learning</li></ul><details><summary>Study details <span aria-hidden="true">+</span></summary><div class="details-body"><p>The framework combines dMRI-conditioned generation, PLI-assisted conditional super-resolution, a support-domain constraint, and cross-scale fine-tuning. Evaluation uses subject-level leave-one-subject-out testing on the Oxford Digital Brain Bank.</p><p>The primary output is a tissue-scale immunomarker proxy at 16.8 μm/pixel. These maps are intended for MRI–histology association and fixed-protocol quantification, rather than recovery of individual cells or replacement of physical IHC staining.</p></div></details></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="container publications-section" id="publications" aria-labelledby="publications-title">
+      <div class="section-heading"><div><p class="eyebrow">02 / PUBLICATIONS</p><h2 id="publications-title">Published research<span class="blue">.</span></h2></div></div>
+      <article class="publication"><span class="publication-year">2026</span><div><p class="journal">JOURNAL OF MEDICAL SYSTEMS · 50, ARTICLE 127</p><h3>An AI-assisted Clinical Decision Support System for Green Classification of Cystocele on Dynamic Transperineal Ultrasound</h3><p class="authors"><strong>Hongjie Zhu</strong>, Xin Geng, Huayuan Zhou, Wei Guo, Yin Dai, Hao Zhang, Meng Dong, Hong Li, Xinlu Wang</p><div class="publication-links"><a class="text-link" href="https://doi.org/10.1007/s10916-026-02453-7" target="_blank" rel="noopener">Publisher <span aria-hidden="true">↗</span></a><a class="text-link" href="https://pubmed.ncbi.nlm.nih.gov/42678584/" target="_blank" rel="noopener">PubMed <span aria-hidden="true">↗</span></a></div></div></article>
+    </section>
+
+    <section class="background-section" id="background" aria-labelledby="background-title"><div class="container background-grid"><div><p class="eyebrow">03 / BACKGROUND</p><h2 id="background-title">Across disciplines. <br>Across perspectives.</h2></div><div><p class="background-degree">Biomedical Engineering</p><h3>Northeastern University <br><span aria-hidden="true">×</span> University of Dundee</h3><p class="programme">3+1 undergraduate programme</p><p>My research interests connect medical image analysis, multimodal learning, and trustworthy AI, with a focus on how models fit into clinical workflows.</p></div></div></section>
+
+    <section class="container contact-section" id="contact" aria-labelledby="contact-title"><div><p class="eyebrow">04 / CONTACT</p><h2 id="contact-title">Let’s talk research<span class="blue">.</span></h2><p>Medical imaging, multimodal learning, and trustworthy AI.</p></div><a class="button primary" href="https://github.com/TTTiankun" target="_blank" rel="noopener">Find me on GitHub <span aria-hidden="true">↗</span></a></section>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner"><p>© 2026 Hongjie Zhu <span lang="zh-CN">朱鸿杰</span></p><a href="#about">Back to top <span aria-hidden="true">↑</span></a></div></footer>
+</body>
+</html>
