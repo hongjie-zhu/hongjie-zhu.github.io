@@ -1,0 +1,5 @@
+World outlines and representative country label positions: Natural Earth, 1:110m Admin 0 Countries (public domain).
+https://www.naturalearthdata.com/about/terms-of-use/
+https://github.com/nvkelso/natural-earth-vector
+Visitor country counts: Flag Counter, counter 6R7o; retrieved from its public aggregate statistics.
+No individual visitor data is stored in this repository.

@@ -1,0 +1,111 @@
+/* Academic reading layout, inspired by the structure of Cheng Chen's homepage. */
+:root{--nav:#08759e;--nav-text:#fff;--map-land:#dce6eb;--map-dot:#168ab7}
+:root[data-theme=dark]{--nav:#172d3d;--nav-text:#e6f2f8;--map-land:#354956;--map-dot:#74cef1}
+.site-header{background:var(--nav);border-bottom:0}
+.header-inner{max-width:1104px;min-height:65px;padding-block:8px}
+.site-header .site-name,.site-header .site-name span,.site-header nav a,.preferences button{color:var(--nav-text)}
+.site-header .site-name{font-size:17px;font-weight:550}
+.site-header .site-name span{opacity:.8}
+.site-header nav a{opacity:.82;font-size:14px}
+.site-header nav a[aria-current]{opacity:1;color:var(--nav-text);box-shadow:0 2px var(--nav-text)}
+.preferences button:hover{background:rgba(255,255,255,.12)}
+.page{max-width:1040px;padding-top:46px}
+h1,h2{font-family:Georgia,"Noto Serif SC","Songti SC",serif}
+.academic-profile{display:grid;grid-template-columns:minmax(0,1fr) 185px;gap:70px;align-items:center;padding:13px 24px 12px}
+.identity h1{font-size:42px;line-height:1.25;font-weight:650;letter-spacing:-1px;color:var(--text)}
+.identity h1>span{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;font-size:23px;font-weight:400;letter-spacing:0;margin-left:12px;color:var(--muted);white-space:nowrap}
+.identity-role{font-size:17px;color:var(--blue);font-weight:550;margin-top:13px}
+.identity-affiliation{line-height:1.7;margin-top:12px;font-size:15px}
+.identity-affiliation a{color:var(--text)}
+.identity-programme{font-size:13px;color:var(--muted);margin-top:6px}
+.identity-email{margin-top:15px;font-size:14px}
+.identity-links{display:flex;align-items:center;gap:14px;font-size:14px;margin-top:6px}
+.identity-links span{color:var(--line)}
+.identity-links a{padding-block:5px}
+.identity-photo{justify-self:end}
+.identity-photo .portrait{width:175px;height:auto;aspect-ratio:1102/1417;border:1px solid var(--line);border-radius:4px;padding:4px;background:#fff}
+.biography-section{max-width:none;margin-top:45px}
+.bio p{line-height:1.85;font-size:16px}
+.bio h2{margin-bottom:21px}
+.section{margin-top:37px}
+.section>h2,.section-title{position:relative;padding-bottom:10px;border-bottom:1px solid var(--line);margin-bottom:20px}
+.section>h2:after,.section-title:after{content:"";position:absolute;left:0;bottom:-1px;width:44px;height:2px;background:var(--blue)}
+h2{font-size:25px;font-weight:650;letter-spacing:-.4px}
+.section-title>a{font-size:13px}
+.directions{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 36px}
+.direction{border:0;padding:0 0 0 17px;position:relative}
+.direction:before{content:"";position:absolute;left:1px;top:10px;width:5px;height:5px;border-radius:50%;background:var(--blue)}
+.direction h3{margin-bottom:3px;font-size:16px}
+.direction p{font-size:14px;line-height:1.65}
+.news-list{border:0}
+.news-item{padding:6px 0;border:0;grid-template-columns:87px minmax(0,1fr);gap:16px;font-size:14px;line-height:1.8}
+.news-item time{color:var(--blue);font-size:13px}
+.news-archive>summary{font-size:13px}
+.work-entry{grid-template-columns:168px minmax(0,1fr);gap:24px;margin-top:24px;padding-bottom:22px;border-bottom:1px solid var(--line)}
+.work-entry:last-child{border-bottom:0;padding-bottom:0}
+.work-thumb{border:0;border-radius:0;min-height:0;padding:4px;background:white}
+.work-thumb img{max-height:128px}
+.robotics-diagram{background:var(--wash);padding:15px;font-size:10px;min-height:122px}
+.work-entry h3{font-size:16px;line-height:1.65}
+.work-description,.authors,.venue,.entry-links{font-size:13px}
+.paper-status{background:none;border:0;padding:0;font-size:12px}
+.research-index{border-top:0;padding-top:0}
+.research-project h3{font-size:18px}
+.page-intro h1{font-size:33px}
+.site-footer{max-width:984px;font-size:12px}
+.site-footer>div{align-items:center}
+.visitors-section{margin-top:43px}
+.minimal-map{max-width:800px;margin:21px auto 0}
+.map-meta{display:flex;align-items:center;justify-content:space-between;gap:15px;font-size:13px;color:var(--muted)}
+.map-meta strong{color:var(--text);font-size:16px;font-weight:600}
+.meta-divider{padding:0 10px;color:var(--muted)}
+.map-legend{font-size:12px;white-space:nowrap;display:flex;align-items:center;gap:7px}
+.map-legend i{width:6px;height:6px;display:inline-block;background:var(--map-dot);border-radius:50%}
+.visitor-map{display:block;width:100%;height:auto;margin:20px 0 8px;overflow:visible}
+.map-land{fill:var(--map-land);stroke:var(--bg);stroke-width:.4}
+.marker-halo{fill:var(--map-dot);opacity:.14}
+.marker-dot{fill:var(--map-dot);stroke:var(--bg);stroke-width:1.4}
+.map-marker.is-active .marker-halo{opacity:.35}
+.map-marker.is-active .marker-dot{stroke-width:2.5}
+.visitor-countries{list-style:none;display:flex;flex-wrap:wrap;gap:6px 20px;padding:0;margin:3px 0 10px}
+.visitor-countries button{border:0;padding:7px 0;background:transparent;color:var(--muted);font-size:13px;min-height:34px}
+.visitor-countries button:hover,.visitor-countries button:focus-visible{color:var(--blue)}
+.visitor-countries button span{color:var(--blue);margin-left:7px;font-variant-numeric:tabular-nums}
+.map-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;border-top:1px solid var(--line);padding-top:11px;font-size:11px;color:var(--muted)}
+.map-foot .visitor-widget{border:0;padding:0;border-radius:0;line-height:1;background:white;max-width:145px}
+.map-foot .visitor-widget img{min-height:0;height:auto;max-width:145px;width:auto}
+.visitors-section .small-note{margin:13px auto 0;max-width:800px;font-size:11px;line-height:1.7;color:var(--muted)}
+.minimal-map .counter-error{font-size:12px;margin-top:10px}
+@media(min-width:768px) and (max-width:1023px){.academic-profile{grid-template-columns:minmax(0,1fr) 160px;gap:35px;padding-inline:4px}.identity h1{font-size:37px}.identity h1>span{font-size:20px}.identity-photo .portrait{width:155px}}
+@media(max-width:767px){
+ .header-inner{min-height:0;padding:8px 20px 0}.site-header nav a[aria-current]{box-shadow:inset 0 -2px var(--nav-text)}
+ .page{padding:27px 20px 0}
+ .academic-profile{grid-template-columns:minmax(0,1fr) 100px;gap:20px;padding:0;align-items:start}
+ .identity h1{font-size:30px;line-height:1.2;letter-spacing:-.6px}
+ .identity h1>span{display:block;font-size:18px;margin:6px 0 0}
+ .identity-role{font-size:14px;line-height:1.65;margin-top:12px}
+ .identity-affiliation{font-size:14px;line-height:1.65;margin-top:10px}
+ .identity-programme{font-size:12px;margin-top:5px;line-height:1.6}
+ .identity-email{font-size:13px;margin-top:12px;overflow-wrap:anywhere}
+ .identity-links{font-size:13px;gap:10px;margin-top:2px}
+ .identity-links a{min-height:36px;display:flex;align-items:center}
+ .identity-photo .portrait{width:100px;height:auto;margin-top:4px;padding:3px;aspect-ratio:1102/1417}
+ .biography-section{margin-top:30px}
+ .bio p{font-size:15px;line-height:1.85}
+ .section{margin-top:31px}h2{font-size:23px}
+ .section>h2,.section-title{margin-bottom:17px;padding-bottom:9px}
+ .directions{grid-template-columns:1fr;gap:15px}
+ .direction h3{font-size:16px}.direction p{font-size:14px}
+ .news-item{grid-template-columns:65px minmax(0,1fr);gap:10px;font-size:14px;padding:7px 0}
+ .news-item time{font-size:12px;padding-top:2px}
+ .work-entry{grid-template-columns:1fr;gap:12px;margin-top:23px;padding-bottom:23px}
+ .work-thumb{width:100%;padding:6px}.work-thumb img{max-height:150px}
+ .robotics-diagram{min-height:105px;padding:12px}
+ .work-entry h3{font-size:16px}.work-description,.authors,.venue,.entry-links{font-size:14px}
+ .page-intro h1{font-size:29px}.map-meta{flex-wrap:wrap;gap:8px;font-size:12px}.map-meta strong{font-size:15px}
+ .visitor-map{margin-top:15px}.minimal-map{margin-top:18px}
+ .map-foot{flex-wrap:wrap;font-size:10px;gap:8px}.visitors-section .small-note{font-size:11px}
+ .visitor-countries{gap:4px 16px}.visitor-countries button{min-height:40px}
+}
+@media(max-width:359px){.academic-profile{grid-template-columns:minmax(0,1fr) 84px;gap:15px}.identity-photo .portrait{width:84px}.identity h1{font-size:26px}.identity h1>span{font-size:17px}.header-inner{padding-inline:16px}.page{padding-inline:18px}}
+@media print{.site-header,.map-foot .visitor-widget{display:none}.map-land{fill:#ddd}.marker-dot{fill:#167ca7}}
