@@ -1,7 +1,7 @@
 (() => {
   const header = document.querySelector('.site-header');
   const links = [...document.querySelectorAll('.site-header nav a')];
-  const sections = ['home','publications','research'].map(id => document.getElementById(id));
+  const sections = links.map(link => document.getElementById(link.hash.slice(1))).filter(Boolean);
   function headerHeight() {
     document.documentElement.style.setProperty('--header-height', `${header.getBoundingClientRect().height}px`);
   }
