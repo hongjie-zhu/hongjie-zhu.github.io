@@ -4,6 +4,7 @@
   const canvas = document.getElementById('whale-canvas');
   const skip = document.getElementById('intro-skip');
   const replay = document.getElementById('intro-replay');
+  const brand = intro?.querySelector('.intro-brand');
   if (!intro || !canvas) return;
 
   const ctx = canvas.getContext('2d', { alpha: false });
@@ -95,12 +96,19 @@
     const t = (now - started) / 1000;
     background(t);
     const assemble = ease(fade(.15,1.75,t)), network = fade(1.0,2.25,t), breathe = Math.sin(t*1.35)*3;
-    const depart = ease(fade(3.75,4.55,t)), alpha = 1 - fade(4.0,4.55,t);
-    const px = pointerX * 10, py = pointerY * 8;
+    const warp = fade(3.25,4.05,t), acceleration = warp * warp * warp;
+    const zoom = 1 + acceleration * 8, alpha = 1 - fade(3.90,4.12,t);
+    const cx = width * .5, cy = height * .43;
+    const px = pointerX * 10 * (1-warp), py = pointerY * 8 * (1-warp);
+    intro.style.setProperty('--warp-zoom', String(zoom));
+    intro.style.setProperty('--warp-blur', (acceleration*2.5).toFixed(2)+'px');
+    brand.style.opacity = String(fade(1.25,1.9,t) * (1-fade(3.96,4.12,t)));
+    intro.classList.toggle('is-warping', warp > 0);
     const positions = whale.map((p,i) => {
       const tail = p.x > .27 ? Math.sin(t*2.1 + (p.x-.27)*10) * Math.pow((p.x-.27)/.23,1.25) * 13 : 0;
       const shimmer = Math.sin(t*1.6+p.phase)*(.7+p.seed*1.4);
-      return {x:p.sx+(p.tx-p.sx)*assemble+px+depart*width*.22,y:p.sy+(p.ty-p.sy)*assemble+py+breathe+tail+shimmer,p};
+      const x = p.sx+(p.tx-p.sx)*assemble+px, y=p.sy+(p.ty-p.sy)*assemble+py+breathe+tail+shimmer;
+      return {x:cx+(x-cx)*zoom,y:cy+(y-cy)*zoom,p};
     });
     ctx.save(); ctx.globalAlpha = alpha * network * .72; ctx.lineWidth=.65;
     links.forEach(([a,b,d],n) => {const p=positions[a],q=positions[b];ctx.strokeStyle=`rgba(${n%7===0?'77,225,209':'155,228,255'},${.13+(1-d/50)*.25})`;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke()});
@@ -110,12 +118,28 @@
       ctx.globalAlpha = alpha * assemble * (q.p.edge ? .9 : .55) * pulse;
       ctx.fillStyle = eye ? '#ffffff' : (q.p.seed>.92 ? '#4de1d1' : '#9be4ff');
       ctx.shadowColor = eye ? '#fff' : '#39b9f1'; ctx.shadowBlur = eye ? 15 : (q.p.edge ? 7 : 3);
-      ctx.beginPath();ctx.arc(q.x,q.y,eye?2.7:(q.p.edge?1.55:1.05),0,Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.arc(q.x,q.y,(eye?2.7:(q.p.edge?1.55:1.05))*Math.min(zoom,2.5),0,Math.PI*2);ctx.fill();
     });
     ctx.shadowBlur=0;ctx.globalAlpha=1;
+    if (warp > 0) {
+      // Perspective streaks radiate from a fixed vanishing point, without lateral drift.
+      ctx.save(); ctx.lineCap='round';
+      ambient.forEach((p,i) => {
+        const angle=i*2.399963, radius=Math.hypot(width,height)*(.025+(i%23)/90);
+        const head=radius*(1+acceleration*7), length=(20+radius*.7)*warp*warp;
+        const x=cx+Math.cos(angle)*head, y=cy+Math.sin(angle)*head;
+        const tx=cx+Math.cos(angle)*Math.max(0,head-length), ty=cy+Math.sin(angle)*Math.max(0,head-length);
+        const g=ctx.createLinearGradient(tx,ty,x,y);
+        g.addColorStop(0,'rgba(57,185,241,0)');g.addColorStop(1,'rgba(175,239,255,'+(.65*warp*alpha)+')');
+        ctx.strokeStyle=g;ctx.lineWidth=.6+warp*1.4;ctx.beginPath();ctx.moveTo(tx,ty);ctx.lineTo(x,y);ctx.stroke();
+      });
+      const glow=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(width,height)*.65);
+      glow.addColorStop(0,'rgba(155,228,255,'+(acceleration*.32)+')');glow.addColorStop(1,'rgba(57,185,241,0)');
+      ctx.fillStyle=glow;ctx.fillRect(0,0,width,height);ctx.restore();
+    }
     const scanX = width*(.08 + .82*fade(1.15,3.25,t));
-    ctx.fillStyle='rgba(142,231,255,.10)';ctx.fillRect(scanX,0,1,height);
-    if (t < 4.65) frame=requestAnimationFrame(draw); else finish();
+    if (!warp) {ctx.fillStyle='rgba(142,231,255,.10)';ctx.fillRect(scanX,0,1,height);}
+    if (t < 4.12) frame=requestAnimationFrame(draw); else finish();
   }
 
   function setUnderlyingInert(value) {
@@ -124,7 +148,9 @@
     });
   }
   function start(force=false) {
-    if (active || (reduceMotion.matches && !force)) return;
+    if (active || reduceMotion.matches) return;
+    intro.style.setProperty('--warp-zoom','1');intro.style.setProperty('--warp-blur','0px');brand.style.opacity='0';
+    intro.classList.remove('is-warping');
     active=true; root.classList.add('whale-intro-pending'); document.body.classList.add('intro-active');
     intro.classList.remove('is-leaving'); intro.classList.add('is-active'); intro.setAttribute('aria-hidden','false');
     setUnderlyingInert(true); rebuild(); started=performance.now();
@@ -133,10 +159,11 @@
   }
   function finish() {
     if(!active) return; active=false; cancelAnimationFrame(frame); intro.classList.add('is-leaving');
-    setTimeout(() => {root.classList.remove('whale-intro-pending');document.body.classList.remove('intro-active');intro.classList.remove('is-active','is-leaving');intro.setAttribute('aria-hidden','true');setUnderlyingInert(false)},620);
+    setTimeout(() => {root.classList.remove('whale-intro-pending');document.body.classList.remove('intro-active');intro.classList.remove('is-active','is-leaving','is-warping');intro.setAttribute('aria-hidden','true');setUnderlyingInert(false)},220);
   }
 
   skip?.addEventListener('click',finish);
+  canvas.addEventListener('click',finish);
   replay?.addEventListener('click',() => start(true));
   addEventListener('resize',() => {if(active) rebuild()},{passive:true});
   addEventListener('pointermove',e => {pointerX=(e.clientX/innerWidth-.5);pointerY=(e.clientY/innerHeight-.5)},{passive:true});
