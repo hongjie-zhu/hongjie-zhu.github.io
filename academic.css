@@ -7,7 +7,7 @@ html{scroll-padding-top:calc(var(--header-height) + 20px)}
 .site-header .site-name,.site-header .site-name span,.site-header nav a,.preferences button{color:var(--nav-text)}
 .site-header .site-name{font-size:17px;font-weight:550}.site-header .site-name span{opacity:.8}
 .site-header nav a{opacity:.82;font-size:14px}.site-header nav a[aria-current]{opacity:1;color:var(--nav-text);box-shadow:0 2px var(--nav-text)}
-.preferences button:hover{background:rgba(255,255,255,.12)}
+.preferences button:hover{background:transparent}
 .page{max-width:1040px;padding-top:46px}h1,h2{font-family:Georgia,"Noto Serif SC","Songti SC",serif}
 .academic-profile{display:grid;grid-template-columns:minmax(0,1fr) 185px;gap:70px;align-items:center;padding:13px 24px 12px}
 .identity h1{font-size:42px;line-height:1.25;font-weight:650;letter-spacing:-1px;color:var(--text)}
@@ -81,20 +81,30 @@ body.intro-active{overflow:hidden}
 #theme-toggle.is-switching svg{animation:theme-icon-turn .65s cubic-bezier(.2,.8,.2,1)}
 @keyframes theme-icon-turn{0%{transform:rotate(-25deg) scale(.72)}55%{transform:rotate(15deg) scale(1.16)}100%{transform:rotate(0) scale(1)}}
 .preferences .replay-whale{position:relative;isolation:isolate}
-.preferences .replay-whale:after{content:"";position:absolute;inset:2px;border:1px solid rgba(155,228,255,.65);border-radius:50%;opacity:0;pointer-events:none}
+
 .preferences .replay-whale svg{transition:transform .25s ease,filter .25s ease}
-@media(hover:hover){.replay-whale:hover svg{animation:whale-icon-swim 1.5s ease-in-out infinite}.replay-whale:hover:after{animation:whale-icon-ripple 1.5s ease-out infinite}}
+@media(hover:hover){.replay-whale:hover svg{animation:whale-icon-swim 1.5s ease-in-out infinite}}
 .replay-whale:focus-visible svg{animation:whale-icon-swim 1.5s ease-in-out infinite}
 .preferences .replay-whale:active svg{transform:scale(.8) rotate(-12deg)}
 .profile-icon svg{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
 .profile-icon:hover svg,.profile-icon:focus-visible svg{transform:rotate(-7deg) scale(1.12)}
 .profile-icon:active svg{transform:scale(.88)}
 @keyframes whale-icon-swim{0%,100%{transform:translateY(1px) rotate(-5deg)}50%{transform:translateY(-3px) rotate(7deg);filter:drop-shadow(0 0 6px rgba(155,228,255,.75))}}
-@keyframes whale-icon-ripple{0%{opacity:.55;transform:scale(.6)}100%{opacity:0;transform:scale(1.45)}}
+
 .whale-intro{transition:opacity .42s ease}
 .whale-intro.is-arriving{animation:whale-portal-in .6s cubic-bezier(.16,.8,.2,1) both}
 .whale-intro.is-leaving{animation:none}
 @keyframes whale-portal-in{from{clip-path:circle(0 at 50% 43%);opacity:.3}to{clip-path:circle(150vmax at 50% 43%);opacity:1}}
-.intro-returning .page{animation:whale-home-in .65s cubic-bezier(.16,.8,.2,1) both;transform-origin:50% 20%}
-@keyframes whale-home-in{from{opacity:.4;transform:scale(.975) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
-@media(prefers-reduced-motion:reduce){#theme-toggle svg,#theme-toggle .moon-icon,#theme-toggle .sun-icon,.preferences .replay-whale svg,.profile-icon svg{animation:none!important;transition:none!important;transform:none!important}.preferences .replay-whale:after,.intro-returning .page{animation:none!important}.theme-reveal::view-transition-new(root),.theme-reveal::view-transition-new(theme-control),.theme-reveal::view-transition-old(theme-control){animation:none}.theme-fading *{transition:none!important}}
+
+
+@media(prefers-reduced-motion:reduce){#theme-toggle svg,#theme-toggle .moon-icon,#theme-toggle .sun-icon,.preferences .replay-whale svg,.profile-icon svg{animation:none!important;transition:none!important;transform:none!important}.theme-reveal::view-transition-new(root),.theme-reveal::view-transition-new(theme-control),.theme-reveal::view-transition-old(theme-control){animation:none}.theme-fading *{transition:none!important}}
+
+/* Bare navigation controls: motion belongs to the icon, never a hover tile. */
+html{scrollbar-gutter:stable}
+.site-header .preferences button,.site-header .preferences button:is(:hover,:active,:focus){background:transparent;border:0;border-radius:0;box-shadow:none;outline:none;-webkit-tap-highlight-color:transparent}
+.preferences button:focus-visible{filter:drop-shadow(0 0 4px rgba(190,239,255,.9));text-decoration:underline;text-underline-offset:6px}
+#language-toggle{transition:transform .28s ease,text-shadow .28s ease}
+@media(hover:hover){#language-toggle:hover{transform:translateY(-2px) scale(1.09);text-shadow:0 0 10px rgba(190,239,255,.55)}#theme-toggle:hover svg{transform:rotate(-18deg) scale(1.16);filter:drop-shadow(0 0 5px rgba(190,239,255,.55))}}
+#language-toggle:active{transform:scale(.92)}
+#theme-toggle:focus-visible svg{transform:scale(1.16)}
+@media(prefers-reduced-motion:reduce){#language-toggle{transition:none}#language-toggle:hover,#language-toggle:active{transform:none}}

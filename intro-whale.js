@@ -11,7 +11,7 @@
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const key = 'hongjie-whale-intro-seen-v1';
   let frame = 0, started = 0, active = false, pointerX = 0, pointerY = 0;
-  let closing = false, returnFocus = null, revealTimer = 0;
+  let closing = false, returnFocus = null;
   let whale = [], links = [], ambient = [], width = 0, height = 0, dpr = 1;
 
   const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
@@ -150,8 +150,6 @@
   }
   function start(force=false) {
     if (active || closing || reduceMotion.matches) return;
-    clearTimeout(revealTimer);
-    document.body.classList.remove('intro-returning');
     returnFocus = force ? replay : null;
     intro.style.setProperty('--warp-zoom','1');intro.style.setProperty('--warp-blur','0px');brand.style.opacity='0';
     intro.classList.remove('is-warping');
@@ -171,10 +169,6 @@
       document.body.classList.remove('intro-active');
       intro.classList.remove('is-active','is-leaving','is-warping');
       intro.setAttribute('aria-hidden','true'); setUnderlyingInert(false); closing=false;
-      if (!reduceMotion.matches) {
-        document.body.classList.add('intro-returning');
-        revealTimer=setTimeout(() => document.body.classList.remove('intro-returning'),700);
-      }
       if (returnFocus) returnFocus.focus({preventScroll:true});
       else if (document.activeElement === skip) skip.blur();
     },reduceMotion.matches ? 0 : 420);
