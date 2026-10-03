@@ -17,10 +17,40 @@
     document.querySelector('meta[name="theme-color"]').content = dark ? '#141d28' : '#ffffff';
   }
   themeLabel();
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  let themeBusy = false;
   themeButton.addEventListener('click', () => {
-    root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-    try { localStorage.setItem('hz-theme', root.dataset.theme); } catch (_) {}
-    themeLabel();
+    if (themeBusy) return;
+    const changeTheme = () => {
+      root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      try { localStorage.setItem('hz-theme', root.dataset.theme); } catch (_) {}
+      themeLabel();
+    };
+    if (reducedMotion.matches) { changeTheme(); return; }
+    const bounds = themeButton.getBoundingClientRect();
+    const x = bounds.left + bounds.width / 2, y = bounds.top + bounds.height / 2;
+    root.style.setProperty('--theme-x', `${x}px`);
+    root.style.setProperty('--theme-y', `${y}px`);
+    root.style.setProperty('--theme-radius', `${Math.hypot(Math.max(x, innerWidth-x), Math.max(y, innerHeight-y))}px`);
+    themeBusy = true;
+    themeButton.classList.add('is-switching');
+    const done = () => {
+      themeBusy = false;
+      themeButton.classList.remove('is-switching');
+      root.classList.remove('theme-reveal', 'theme-fading');
+    };
+    if (typeof document.startViewTransition === 'function') {
+      root.classList.add('theme-reveal');
+      try {
+        const transition = document.startViewTransition(changeTheme);
+        transition.ready.catch(() => {});
+        transition.finished.then(done, done);
+      } catch (_) { changeTheme(); done(); }
+    } else {
+      root.classList.add('theme-fading');
+      changeTheme();
+      setTimeout(done, 650);
+    }
   });
   const counter = document.getElementById('visitor-counter');
   if (counter) {

@@ -58,3 +58,43 @@ body.intro-active{overflow:hidden}
 @media print{.whale-intro,.replay-whale{display:none!important}.home-content:before{display:none}}
 
 .whale-intro.is-warping .intro-depth{opacity:0;transition:opacity .15s}.whale-intro.is-warping:after{opacity:0;transition:opacity .3s}
+
+/* Button-led theme reveal and a forward, central whale transition. */
+.theme-reveal::view-transition-old(root),.theme-reveal::view-transition-new(root){animation:none;mix-blend-mode:normal}
+.theme-reveal::view-transition-old(root){z-index:1}
+.theme-reveal::view-transition-new(root){z-index:2;animation:theme-circle-in .65s cubic-bezier(.22,.7,.2,1) both}
+.theme-reveal #theme-toggle{view-transition-name:theme-control}
+.theme-reveal::view-transition-group(theme-control){z-index:3;animation-duration:.65s}
+.theme-reveal::view-transition-old(theme-control){animation:theme-control-out .25s ease both}
+.theme-reveal::view-transition-new(theme-control){animation:theme-control-in .65s cubic-bezier(.2,.8,.2,1) both}
+@keyframes theme-control-out{to{opacity:0;transform:rotate(80deg) scale(.5)}}
+@keyframes theme-control-in{from{opacity:0;transform:rotate(-100deg) scale(.4)}60%{opacity:1;transform:rotate(12deg) scale(1.12)}to{opacity:1;transform:rotate(0) scale(1)}}
+@keyframes theme-circle-in{from{clip-path:circle(0 at var(--theme-x) var(--theme-y))}to{clip-path:circle(var(--theme-radius) at var(--theme-x) var(--theme-y))}}
+.theme-fading body,.theme-fading .site-header,.theme-fading .news-scroll,.theme-fading .timeline-status,.theme-fading .profile-icon,.theme-fading .section-title,.theme-fading .site-footer{transition:background-color .55s ease,color .55s ease,border-color .55s ease}
+.theme-fading :is(h1,h2,h3,p,a,span,time){transition:color .55s ease}
+#theme-toggle svg{overflow:visible;transition:transform .55s cubic-bezier(.2,.8,.2,1)}
+#theme-toggle .moon-icon,#theme-toggle .sun-icon{display:block;transform-origin:12px 12px;transition:transform .55s cubic-bezier(.2,.8,.2,1),opacity .4s ease}
+#theme-toggle .moon-icon{opacity:1;transform:rotate(0) scale(1)}
+#theme-toggle .sun-icon{opacity:0;transform:rotate(-100deg) scale(.35)}
+[data-theme=dark] #theme-toggle .moon-icon{opacity:0;transform:rotate(100deg) scale(.35)}
+[data-theme=dark] #theme-toggle .sun-icon{opacity:1;transform:rotate(0) scale(1)}
+#theme-toggle.is-switching svg{animation:theme-icon-turn .65s cubic-bezier(.2,.8,.2,1)}
+@keyframes theme-icon-turn{0%{transform:rotate(-25deg) scale(.72)}55%{transform:rotate(15deg) scale(1.16)}100%{transform:rotate(0) scale(1)}}
+.preferences .replay-whale{position:relative;isolation:isolate}
+.preferences .replay-whale:after{content:"";position:absolute;inset:2px;border:1px solid rgba(155,228,255,.65);border-radius:50%;opacity:0;pointer-events:none}
+.preferences .replay-whale svg{transition:transform .25s ease,filter .25s ease}
+@media(hover:hover){.replay-whale:hover svg{animation:whale-icon-swim 1.5s ease-in-out infinite}.replay-whale:hover:after{animation:whale-icon-ripple 1.5s ease-out infinite}}
+.replay-whale:focus-visible svg{animation:whale-icon-swim 1.5s ease-in-out infinite}
+.preferences .replay-whale:active svg{transform:scale(.8) rotate(-12deg)}
+.profile-icon svg{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.profile-icon:hover svg,.profile-icon:focus-visible svg{transform:rotate(-7deg) scale(1.12)}
+.profile-icon:active svg{transform:scale(.88)}
+@keyframes whale-icon-swim{0%,100%{transform:translateY(1px) rotate(-5deg)}50%{transform:translateY(-3px) rotate(7deg);filter:drop-shadow(0 0 6px rgba(155,228,255,.75))}}
+@keyframes whale-icon-ripple{0%{opacity:.55;transform:scale(.6)}100%{opacity:0;transform:scale(1.45)}}
+.whale-intro{transition:opacity .42s ease}
+.whale-intro.is-arriving{animation:whale-portal-in .6s cubic-bezier(.16,.8,.2,1) both}
+.whale-intro.is-leaving{animation:none}
+@keyframes whale-portal-in{from{clip-path:circle(0 at 50% 43%);opacity:.3}to{clip-path:circle(150vmax at 50% 43%);opacity:1}}
+.intro-returning .page{animation:whale-home-in .65s cubic-bezier(.16,.8,.2,1) both;transform-origin:50% 20%}
+@keyframes whale-home-in{from{opacity:.4;transform:scale(.975) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@media(prefers-reduced-motion:reduce){#theme-toggle svg,#theme-toggle .moon-icon,#theme-toggle .sun-icon,.preferences .replay-whale svg,.profile-icon svg{animation:none!important;transition:none!important;transform:none!important}.preferences .replay-whale:after,.intro-returning .page{animation:none!important}.theme-reveal::view-transition-new(root),.theme-reveal::view-transition-new(theme-control),.theme-reveal::view-transition-old(theme-control){animation:none}.theme-fading *{transition:none!important}}

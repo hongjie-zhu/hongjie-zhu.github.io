@@ -11,6 +11,7 @@
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const key = 'hongjie-whale-intro-seen-v1';
   let frame = 0, started = 0, active = false, pointerX = 0, pointerY = 0;
+  let closing = false, returnFocus = null, revealTimer = 0;
   let whale = [], links = [], ambient = [], width = 0, height = 0, dpr = 1;
 
   const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
@@ -148,26 +149,49 @@
     });
   }
   function start(force=false) {
-    if (active || reduceMotion.matches) return;
+    if (active || closing || reduceMotion.matches) return;
+    clearTimeout(revealTimer);
+    document.body.classList.remove('intro-returning');
+    returnFocus = force ? replay : null;
     intro.style.setProperty('--warp-zoom','1');intro.style.setProperty('--warp-blur','0px');brand.style.opacity='0';
     intro.classList.remove('is-warping');
+    intro.classList.toggle('is-arriving', force);
     active=true; root.classList.add('whale-intro-pending'); document.body.classList.add('intro-active');
     intro.classList.remove('is-leaving'); intro.classList.add('is-active'); intro.setAttribute('aria-hidden','false');
     setUnderlyingInert(true); rebuild(); started=performance.now();
+    skip?.focus({preventScroll:true});
     try { sessionStorage.setItem(key,'1'); } catch(_) {}
     cancelAnimationFrame(frame); frame=requestAnimationFrame(draw);
   }
   function finish() {
-    if(!active) return; active=false; cancelAnimationFrame(frame); intro.classList.add('is-leaving');
-    setTimeout(() => {root.classList.remove('whale-intro-pending');document.body.classList.remove('intro-active');intro.classList.remove('is-active','is-leaving','is-warping');intro.setAttribute('aria-hidden','true');setUnderlyingInert(false)},220);
+    if(!active) return; active=false; closing=true; cancelAnimationFrame(frame);
+    intro.classList.remove('is-arriving'); intro.classList.add('is-leaving');
+    setTimeout(() => {
+      root.classList.remove('whale-intro-pending');
+      document.body.classList.remove('intro-active');
+      intro.classList.remove('is-active','is-leaving','is-warping');
+      intro.setAttribute('aria-hidden','true'); setUnderlyingInert(false); closing=false;
+      if (!reduceMotion.matches) {
+        document.body.classList.add('intro-returning');
+        revealTimer=setTimeout(() => document.body.classList.remove('intro-returning'),700);
+      }
+      if (returnFocus) returnFocus.focus({preventScroll:true});
+      else if (document.activeElement === skip) skip.blur();
+    },reduceMotion.matches ? 0 : 420);
+  }
+  function dive() {
+    if (!active) return;
+    // Clicking the whale enters the existing forward warp instead of cutting it off.
+    started=Math.min(started,performance.now()-3250);
   }
 
   skip?.addEventListener('click',finish);
-  canvas.addEventListener('click',finish);
+  canvas.addEventListener('click',dive);
   replay?.addEventListener('click',() => start(true));
   addEventListener('resize',() => {if(active) rebuild()},{passive:true});
   addEventListener('pointermove',e => {pointerX=(e.clientX/innerWidth-.5);pointerY=(e.clientY/innerHeight-.5)},{passive:true});
-  addEventListener('keydown',e => {if(active && (e.key==='Escape'||e.key==='Enter'||e.key===' ')) finish()});
+  addEventListener('keydown',e => {if(active && e.key==='Escape') finish()});
+  reduceMotion.addEventListener('change',() => {if(reduceMotion.matches && active) finish()});
   addEventListener('wheel',() => {if(active) finish()},{passive:true});
   addEventListener('touchmove',() => {if(active) finish()},{passive:true});
   if (root.classList.contains('whale-intro-pending')) start(); else {intro.setAttribute('aria-hidden','true');setUnderlyingInert(false)}
