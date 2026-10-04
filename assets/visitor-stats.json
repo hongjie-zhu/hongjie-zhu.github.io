@@ -1,6 +1,6 @@
 {
   "source": "https://s01.flagcounter.com/countries/6R7o/",
-  "updated_at": "2026-10-04T12:17:55+00:00",
+  "updated_at": "2026-10-04T21:21:02+00:00",
   "countries": [
     {
       "code": "US",
@@ -10,7 +10,7 @@
     {
       "code": "GB",
       "name": "United Kingdom",
-      "visits": 6
+      "visits": 7
     },
     {
       "code": "CN",
@@ -29,5 +29,5 @@
     }
   ],
   "country_count": 5,
-  "recorded_visits": 21
+  "recorded_visits": 22
 }
